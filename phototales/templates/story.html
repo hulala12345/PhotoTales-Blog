@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ story.title }}</h2>
+<p>{{ story.description }}</p>
+<ul>
+{% for assoc in story.photos|sort(attribute='order') %}
+    <li><img src="{{ url_for('static', filename='uploads/' + assoc.photo.filename) }}" alt="{{ assoc.photo.description }}" width="200"></li>
+{% endfor %}
+</ul>
+<h3>Comments</h3>
+<ul>
+{% for comment in story.comments %}
+    <li>{{ comment.user.username }}: {{ comment.text }}</li>
+{% endfor %}
+</ul>
+{% if current_user.is_authenticated %}
+<form method="post" action="{{ url_for('comment_story', story_id=story.id) }}">
+    <input type="text" name="text" placeholder="Add a comment">
+    <button type="submit">Comment</button>
+</form>
+<a href="{{ url_for('like_story', story_id=story.id) }}">Like</a>
+{% endif %}
+<p>{{ story.likes|length }} likes</p>
+{% endblock %}

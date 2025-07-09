@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create Story</h2>
+<form method="post">
+    <label>Title: <input type="text" name="title"></label><br>
+    <label>Description: <input type="text" name="description"></label><br>
+    <label>Visibility:
+        <select name="visibility">
+            <option value="public">Public</option>
+            <option value="friends">Friends Only</option>
+            <option value="private">Private</option>
+        </select>
+    </label><br>
+    <label>Choose Photos:</label><br>
+    {% for photo in photos %}
+        <input type="checkbox" name="photos" value="{{ photo.id }}"> {{ photo.filename }}<br>
+    {% endfor %}
+    <button type="submit">Create</button>
+</form>
+{% endblock %}

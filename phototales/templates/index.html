@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Recent Stories</h2>
+<ul>
+{% for story in stories %}
+    <li><a href="{{ url_for('story_detail', story_id=story.id) }}">{{ story.title }}</a> by {{ story.user.username }}</li>
+{% else %}
+    <li>No stories yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
